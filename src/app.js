@@ -1,3 +1,4 @@
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 const compression = require('compression');
 const express = require('express');
 const { default: helmet } = require('helmet');
