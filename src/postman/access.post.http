@@ -1,10 +1,10 @@
 ### signup
 POST http://localhost:3055/v1/api/shop/signup
 Content-Type: application/json
-x-api-key: d3155f853aa2bfa7e8fc16cbef6464def09612306ace0779bdb784320bc56245994273249b60bad21c629fe6bdbc51017b3629d598e75feb6e8c7a933d134404
+x-api-key: 8ba78000fe1e1b5c66611e72d5a13a7ae30117ad0b4e2f459152893150236de48100845599292b3f98c3f53575192d2fbdbc9b3a7b887745b66deb1fd7d67388
 
 {
     "name": "Shop",
-    "email": "kakashi_shop04@gmail.com",
+    "email": "kakashi_shop06@gmail.com",
     "password": "13456789"
 }
