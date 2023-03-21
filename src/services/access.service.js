@@ -15,6 +15,37 @@ const RoleShop = {
   ADMIN: 'ADMIN'
 }
 class AccessService {
+  // version 2 refreshToken
+  static handlerResfreshTokenV2 = async ({ refreshToken, keyStore, user }) => {
+    const { userId, email } = user;
+    if (keyStore.refreshTokensUsed.includes(refreshToken)) {
+      await KeyTokenService.deleteKeyById(userId);
+      throw new ForbiddenError('Something wrong happend !! Please relogin')
+    }
+    if (keyStore.refreshToken !== refreshToken) throw new AuthFailureError('Shop not registed')
+
+    const foundShop = await findByEmail({ email });
+    if (!foundShop) throw new AuthFailureError('Shop not registed')
+
+    const tokens = await createTokenPair({ userId, email }, keyStore.publicKey, keyStore.privateKey);
+    // update token
+    await keyStore.update({
+      $set: {
+        refreshToken: tokens.refreshToken
+      },
+      $addToSet: {
+        refreshTokensUsed: refreshToken
+      }
+    })
+
+    return {
+      user,
+      tokens
+    }
+  }
+
+
+  // version 1 refreshToken
   /*
     check this token used
   */
@@ -40,7 +71,7 @@ class AccessService {
     // verifyToken
     const { userId, email } = await verifyJWT(refreshToken, holderToken.privateKey);
     // check userId
-    const foundShop = await findByEmail({email});
+    const foundShop = await findByEmail({ email });
     if (!foundShop) throw new AuthFailureError('Shop not registed 2');
 
     // create new tokens
