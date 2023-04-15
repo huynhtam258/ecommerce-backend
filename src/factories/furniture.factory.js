@@ -1,13 +1,18 @@
 const { furniture } = require("../models/product.model");
 const { BadRequestError } = require("../core/error.response");
 const { Product } = require('./product.factory')
-const { updateProductById } = require("../repositories/product.repo");
+const { updateProductById } = require("./../models/repositories/product.repo");
 const { removeAttrUndefined, updateNestedObjectParser } = require("../utils");
 
 class Furniture extends Product {
   async createProduct() {
-    const newClothing = await furniture.create(this.product_attributes)
-    if (!newClothing) {
+    const newFurniture = await furniture.create(
+      { 
+        ...this.product_attributes, 
+        product_shop: this.product_shop 
+      }
+    )
+    if (!newFurniture) {
       throw new BadRequestError('create new Furniture error')
     }
 

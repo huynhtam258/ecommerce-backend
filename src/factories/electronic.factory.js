@@ -1,7 +1,7 @@
 const { electronic } = require("../models/product.model");
 const { BadRequestError } = require("../core/error.response");
 const { Product } = require('./product.factory')
-const { updateProductById } = require("../repositories/product.repo");
+const { updateProductById } = require("./../models/repositories/product.repo");
 const { removeAttrUndefined, updateNestedObjectParser } = require("../utils");
 
 class Electronic extends Product {

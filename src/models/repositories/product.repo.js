@@ -1,5 +1,5 @@
 const { Types } = require('mongoose');
-const { product, electronic, clothing, furniture } = require('./../product.model');
+const { product } = require('./../product.model');
 const { getSelectData, unGetSelectData } = require('./../../utils')
 
 const findAllDarftForShop = async ({ query, limit, skip }) => {

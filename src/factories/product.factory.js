@@ -23,8 +23,8 @@ class Product {
   }
 
   // create new Product
-  async createProduct(product_id) {
-    return await product.create({ ...this, _id: product_id })
+  async createProduct() {
+    return await product.create(this)
   }
 
   // update product
