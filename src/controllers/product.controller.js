@@ -16,7 +16,6 @@ class ProductController {
       message: "Create new Product success!",
       metadata: await ProductServiceV2.createProduct(
         req.body.product_type,
-        req.params.productId,
         {
           ...req.body,
           product_shop: req.user.userId
