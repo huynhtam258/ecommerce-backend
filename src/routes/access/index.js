@@ -7,7 +7,24 @@ const router = express.Router();
 
 //signUp
 router.post('/shop/signup', asyncHandler(accessController.signUp));
-// login
+
+/**
+ * @swagger
+ *   /api/v1/auth/login:
+ *     post:
+ *       summary: Shop login
+ *       tags: [Auth]
+ *       security: []
+ *       responses:
+ *         "400":
+ *           $ref: '#/components/responses/400'
+ *         "401":
+ *           $ref: '#/components/responses/401'
+ *         "200":
+ *           description: List product contains key search
+ *           contents:
+ *             application/json
+ */
 router.post('/shop/login', asyncHandler(accessController.login));
 
 // authentication 
