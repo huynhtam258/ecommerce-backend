@@ -15,6 +15,24 @@ router.post('/shop/signup', asyncHandler(accessController.signUp));
  *       summary: Shop login
  *       tags: [Auth]
  *       security: []
+ *     consumes:
+ *       - application/json
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: login
+ *         description: Thông tin đăng nhập
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             email:
+ *               type: string
+ *               format: email
+ *             password:
+ *               type: string
+ *     responses:
  *       responses:
  *         "400":
  *           $ref: '#/components/responses/400'
