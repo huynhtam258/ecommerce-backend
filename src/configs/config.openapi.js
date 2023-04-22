@@ -9,15 +9,15 @@ const options = {
         },
         servers: [
             {
-                url: `http://localhost:${process.env.PORT}`,
+                url: `http://localhost:3055`,
                 description: 'Development server'
             },
             {
-                url: `http://localhost:${process.env.PORT}`,
+                url: `http://localhost:3055`,
                 description: 'Uat server'
             },
             {
-                url: `http://localhost:${process.env.PORT}`,
+                url: `http://localhost:3055`,
                 description: 'Product server'
             },
         ],
@@ -108,7 +108,7 @@ const options = {
                 ApiKeyAuth: {
                     type: 'apiKey',
                     in: 'header',
-                    name: 'Authorization'
+                    name: 'x-api-key'
                 }
             }
         },

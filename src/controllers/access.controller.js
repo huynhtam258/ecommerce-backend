@@ -19,6 +19,7 @@ class AccessController {
     }).send(res)
   }
   login = async (req, res, next) => {
+    console.log(123456789, req.body);
     new SuccessResponse({
       metadata: await AccessService.login(req.body)
     }).send(res)

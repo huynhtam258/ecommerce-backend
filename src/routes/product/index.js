@@ -7,7 +7,7 @@ const router = express.Router();
 
 /**
  * @swagger
- *   /api/v1/product/search/{keySearch}:
+ *   /v1/api/product/search/{keySearch}:
  *     get:
  *       summary: Search product by key
  *       tags: [Products]
@@ -19,6 +19,10 @@ const router = express.Router();
  *             type: string
  *           required: true
  *           description: key word search product
+ *         - in: header
+ *           name: x-api-key
+ *           type: string
+ *           required: true
  *       responses:
  *         "400":
  *           $ref: '#/components/responses/400'

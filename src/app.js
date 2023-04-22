@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 var cors = require('cors')
 const app = express();
-app.use(cors())
+app.use(cors());
 
 // init  middlewwares
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -70,6 +70,7 @@ app.use((error, req, res, next) => {
     return res.status(statusCode).json({
         status: 'error',
         code: statusCode,
+        stack: req.stack,
         message: error.message || 'Internal Server Error'
     })
 })
