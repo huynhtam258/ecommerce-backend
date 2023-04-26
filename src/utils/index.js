@@ -15,14 +15,13 @@ const unGetSelectData = (select = []) => {
     return Object.fromEntries(select.map(el => [el, 0]))
 }
 
-const removeUndefinedObject = obj => {
-    Object.keys(obj).forEach(k => {
-        if(obj[k] == null) {
-            delete obj[k]
-        }
+const removeUndefinedObject = object => {
+    Object.keys(object).forEach(key => {
+        if (object[key] === undefined
+            || object[key] === null) delete object[key]
     })
 
-    return obj
+    return object
 }
 
 const updateNestedObjectParser = obj => {

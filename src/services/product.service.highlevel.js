@@ -23,7 +23,7 @@ class ProductFactory {
 
     if(!productClass) throw new BadRequestError(`Invalid Product Types ${type}`)
 
-    return new productClass(payload).updateProduct(productId)
+    return new productClass(payload).updateProduct(productId, payload)
   }
 
   // PUT
@@ -115,13 +115,15 @@ class Clothing extends Product {
   }
 
   async updateProduct(productId) {
+    // 1. remove attr has null and undefined
     const objectParams = removeUndefinedObject(this)
     if (objectParams.product_attributes) {
       // update child
       await updateProductById({
         productId, 
         bodyUpdate: updateNestedObjectParser(objectParams.product_attributes), 
-        model: clothing})
+        model: clothing
+      })
     }
 
     const updateProduct = await super.updateProduct(productId, updateNestedObjectParser(objectParams));
@@ -142,6 +144,21 @@ class Electronic extends Product {
 
     return newProduct;
   }
+
+  async updateProduct(productId) {
+    const objectParams = removeUndefinedObject(this)
+    if (objectParams.product_attributes) {
+      // update child
+      await updateProductById({
+        productId, 
+        bodyUpdate: updateNestedObjectParser(objectParams.product_attributes), 
+        model: electronic
+      })
+    }
+
+    const updateProduct = await super.updateProduct(productId, updateNestedObjectParser(objectParams));
+    return updateProduct
+  }
 }
 
 
@@ -157,6 +174,21 @@ class Furniture extends Product {
     if (!newProduct) throw new BadRequestError('create new Product error');
 
     return newProduct;
+  }
+
+  async updateProduct(productId) {
+    const objectParams = removeUndefinedObject(this)
+    if (objectParams.product_attributes) {
+      // update child
+      await updateProductById({
+        productId, 
+        bodyUpdate: updateNestedObjectParser(objectParams.product_attributes), 
+        model: furniture
+      })
+    }
+
+    const updateProduct = await super.updateProduct(productId, updateNestedObjectParser(objectParams));
+    return updateProduct
   }
 }
 
