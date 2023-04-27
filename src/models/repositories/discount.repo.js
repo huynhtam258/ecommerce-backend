@@ -42,8 +42,14 @@ const updateDiscountCodeById = async ({
   return discount.findByIdAndUpdate(discountId, bodyUpdate)
 }
 
+const checkDiscountExists = async ({ model, filter }) => {
+  const foundDiscount = await model.findOne(filter).lean()
+  return foundDiscount
+}
+
 module.exports = {
   findAllDiscountCodeUnSelect,
   findAllDiscountCodeSelect,
-  updateDiscountCodeById
+  updateDiscountCodeById,
+  checkDiscountExists
 }
