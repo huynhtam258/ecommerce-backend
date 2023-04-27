@@ -26,16 +26,18 @@ const removeUndefinedObject = object => {
 
 const updateNestedObjectParser = obj => {
     const final = {}
-    Object.keys(obj).forEach(k => {
-        if(typeof obj[k] === 'Object' && !Array.isArray(obj[k])) {
-            const response = updateNestedObjectParser(obj[k])
-            Object.keys(response).forEach(a => {
-                final[`${k}.${a}`] = res[a]
+    Object.keys(obj).forEach(i => {
+        if (typeof obj[i] === 'object' && !Array.isArray(obj[i])) {
+            const response = updateNestedObjectParser(obj[i])
+            Object.keys(obj[i]).forEach(j => {
+                final[`${i}.${j}`] = response[j]
             })
         } else {
-            final[k] = obj[k]
+            final[i] = obj[i]
         }
     })
+
+    return final;
 }
 
 module.exports = {
