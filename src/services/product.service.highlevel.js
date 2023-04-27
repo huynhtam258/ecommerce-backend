@@ -1,6 +1,15 @@
 const { BadRequestError } = require("../core/error.response");
 const { clothing, electronic, product, furniture } = require("../models/product.model");
-const { findAllDarftForShop, findAllPublishForShop, publishProductByShop, unPublishProductByShop, searchProductsByUser, findAllProducts, findProduct, updateProductById } = require("../models/repositories/product.repo");
+const {
+  findAllDarftForShop,
+  findAllPublishForShop,
+  publishProductByShop,
+  unPublishProductByShop,
+  searchProductsByUser,
+  findAllProducts,
+  findProduct,
+  updateProductById
+} = require("../models/repositories/product.repo");
 const { removeUndefinedObject, updateNestedObjectParser } = require("../utils");
 const { insertInventory } = require('./../models/repositories/inventory.repo')
 class ProductFactory {
@@ -21,9 +30,9 @@ class ProductFactory {
   static async updateProduct(type, productId, payload) {
     const productClass = ProductFactory.productRegistry[type];
 
-    if(!productClass) throw new BadRequestError(`Invalid Product Types ${type}`)
+    if (!productClass) throw new BadRequestError(`Invalid Product Types ${type}`)
 
-    return new productClass(payload).updateProduct(productId, payload)
+    return new productClass(payload).updateProduct(productId)
   }
 
   // PUT
@@ -120,8 +129,8 @@ class Clothing extends Product {
     if (objectParams.product_attributes) {
       // update child
       await updateProductById({
-        productId, 
-        bodyUpdate: updateNestedObjectParser(objectParams.product_attributes), 
+        productId,
+        bodyUpdate: updateNestedObjectParser(objectParams.product_attributes),
         model: clothing
       })
     }
@@ -150,8 +159,8 @@ class Electronic extends Product {
     if (objectParams.product_attributes) {
       // update child
       await updateProductById({
-        productId, 
-        bodyUpdate: updateNestedObjectParser(objectParams.product_attributes), 
+        productId,
+        bodyUpdate: updateNestedObjectParser(objectParams.product_attributes),
         model: electronic
       })
     }
@@ -181,8 +190,8 @@ class Furniture extends Product {
     if (objectParams.product_attributes) {
       // update child
       await updateProductById({
-        productId, 
-        bodyUpdate: updateNestedObjectParser(objectParams.product_attributes), 
+        productId,
+        bodyUpdate: updateNestedObjectParser(objectParams.product_attributes),
         model: furniture
       })
     }
