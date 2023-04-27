@@ -2,7 +2,7 @@ const { BadRequestError, NotFoundError } = require("../core/error.response");
 const { convertToObjectIdMongodb } = require("../utils");
 const { findAllProducts } = require('./../models/repositories/product.repo');
 const discount = require('./../models/discount.model');
-const { findAllDiscountCodeUnSelect, findAllDiscountCodeSelect } = require("../models/repositories/discount.repo");
+const { findAllDiscountCodeUnSelect, findAllDiscountCodeSelect, updateDiscountCodeById } = require("../models/repositories/discount.repo");
 class DiscountService {
   static async createDiscountCode(payload) {
     const {
@@ -65,8 +65,8 @@ class DiscountService {
     return newDiscount
   }
 
-  static async updateDiscountCode() {
-    // TODO
+  static async updateDiscountCode(discountId, bodyUpdate) {
+    return await updateDiscountCodeById(discountId, bodyUpdate)
   }
 
   // Get all discount codes available with products

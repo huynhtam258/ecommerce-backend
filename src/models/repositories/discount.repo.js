@@ -1,6 +1,7 @@
 const {
   getSelectData, unGetSelectData
 } = require('./../../utils');
+const discount = require('./../discount.model')
 
 const findAllDiscountCodeUnSelect = async ({
   limit = 50, page = 1, sort = 'ctime',
@@ -15,7 +16,7 @@ const findAllDiscountCodeUnSelect = async ({
     .select(unGetSelectData(unSelect))
     .lean()
 
-  return documents
+  return documents;
 }
 
 const findAllDiscountCodeSelect = async ({
@@ -31,10 +32,18 @@ const findAllDiscountCodeSelect = async ({
     .select(getSelectData(unSelect))
     .lean()
 
-  return documents
+  return documents;
+}
+
+const updateDiscountCodeById = async ({
+  discountId,
+  bodyUpdate
+}) => {
+  return discount.findByIdAndUpdate(discountId, bodyUpdate)
 }
 
 module.exports = {
   findAllDiscountCodeUnSelect,
-  findAllDiscountCodeSelect
+  findAllDiscountCodeSelect,
+  updateDiscountCodeById
 }
