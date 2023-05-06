@@ -35,7 +35,7 @@ const discountSchema = new Schema({
         type: Number,
         required: true
     },
-    discount_use_count: { // so discount da su dung
+    discount_uses_count: { // so discount da su dung
         type: Number,
         required: true
     },
@@ -43,7 +43,7 @@ const discountSchema = new Schema({
         type: Array,
         default: []
     },
-    discount_max_uses_pre_user: { // so luong cho phep toi da dung
+    discount_max_uses_per_user: { // so luong cho phep toi da dung
         type: Number,
         required: true
     },
@@ -71,7 +71,7 @@ const discountSchema = new Schema({
     }
 }, {
     timestamps: true,
-    collation: COLLECTION_NAME
+    collection: COLLECTION_NAME
 });
 
 module.exports = model(DOCUMENT_NAME, discountSchema);

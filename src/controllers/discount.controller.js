@@ -33,10 +33,10 @@ class DiscountController {
   getAllDiscountCodeWithProducts = async(req, res, next) => {
     new SuccessResponse({
       message: "Get Discount code with products success",
-      metadata: await DiscountService.getAllDiscountCodeWithProducts({
+      metadata: await DiscountService.getAllDiscountCodesWithProduct({
         ...req.query
       })
-    })
+    }).send(res)
   }
 }
 
