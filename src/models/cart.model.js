@@ -35,10 +35,7 @@ const cartSchema = new Schema({
   }
 }, {
   collection: COLLECTION_NAME,
-  timeseries: {
-    createdAt: 'createOn',
-    updatedAt: 'modifiedOn'
-  }
+  timestamps: true
 });
 
 module.exports = {
