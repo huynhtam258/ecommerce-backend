@@ -14,6 +14,12 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(compression());
 
+
+// test redis
+// require('./test/inventory.test')
+// const productTest = require('./test/product.test')
+// productTest.purchaseProduct('product:001', 10)
+
 // init db
 require('./dbs/init.mongodb');
 // const { checkOverload } = require('./helpers/check.connect');
