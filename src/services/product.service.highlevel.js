@@ -11,7 +11,8 @@ const {
   updateProductById
 } = require("../models/repositories/product.repo");
 const { removeUndefinedObject, updateNestedObjectParser } = require("../utils");
-const { insertInventory } = require('./../models/repositories/inventory.repo')
+const { insertInventory } = require('./../models/repositories/inventory.repo');
+const { pushNotiToSystem } = require("./notification.service");
 class ProductFactory {
   static productRegistry = {}
 
@@ -98,6 +99,17 @@ class Product {
         shopId: this.product_shop,
         stock: this.product_quantity,
       })
+      pushNotiToSystem({
+        type: 'SHOP-001',
+        receivedId: 1,
+        senderId: this.product_shop,
+        option: {
+          product_name: this.product_name,
+          shope_name: this.product_shop
+        }
+      })
+        .then(res => console.log(res))
+        .catch(err => console.error(err))
     }
     return newProduct
   }
