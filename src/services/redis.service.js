@@ -1,41 +1,45 @@
-const redis = require('redis');
-const { promisify } = require('util');
+"use strict";
 
-const setNXAsync = function(key, value) {
-  return redisClient.setNX(key, value);
-};
+const redis = require("redis");
+const { promisify } = require("util");
+const redisClient = redis.createClient();
 
-const acquireLock = async (productId, quantity, cartId) => {
+const pexpire = promisify(redisClient.pexpire).bind(redisClient);
+const setnxAsync = promisify(redisClient.setnx).bind(redisClient);
+
+const acquiredLock = async (productId, quantity, cartId) => {
   const key = `lock_v2023_${productId}`;
   const retryTimes = 10;
-  const expireTime = 3000; // 3 giay tam lock
+  const expireTime = 3000; // 3s
 
-  for (let i = 0; i < retryTimes; i++) {
-    // tao 1 key, thang nao nam giu duoc vao thanh toan
-    const result = await promisify(setNXAsync)(key, expireTime);
-    console.log(`result:::`, result);
+  for (let index = 0; index < retryTimes; index++) {
+    const result = await setnxAsync(key, expireTime);
+
     if (result === 1) {
-      //thao tac voi inventory
       const isReversation = await reservationInventory({
-        productId, quantity, cartId
+        productId,
+        quantity,
+        cartId,
       });
+
       if (isReversation.modifiedCount) {
-        await pexpire(key, expireTime)
-        return key
+        await pexpire(key, expireTime);
+        return key;
       }
-      return null
+
+      return null;
     } else {
-      await new Promise((resolve) => setTimeout(resolve, 50))
+      await new Promise((resolve) => setTimeout(resolve, 50));
     }
   }
 };
 
-const releaseLock = async keyLock => {
-  const delAsyncKey = promisify(redisClient.del).bind(redisClient)
-  return await delAsyncKey(keyLock)
-}
+const releaseLock = async (keyLock) => {
+  const deleteAsyncKey = promisify(redisClient.del).bind(redisClient);
+  return await deleteAsyncKey(keyLock);
+};
 
 module.exports = {
-  acquireLock,
-  releaseLock
-}
+  acquiredLock,
+  releaseLock,
+};
