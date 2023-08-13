@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/huynhtam258/ecommerce-backend#readme",
   "dependencies": {
+    "amqplib": "^0.10.3",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "crypto": "^1.0.1",
