@@ -1,6 +1,11 @@
 const amqp = require('amqplib');
 const message = 'new a product: Title JS'
 
+const log = console.log
+console.log = function() {
+    log.apply(console, [new Date()].concat(arguments))
+}
+
 const runProducer = async () => {
     try {
         const connection = await amqp.connect('amqp://guest:guest@localhost')
