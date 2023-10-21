@@ -13,7 +13,7 @@ const runProducer = async () => {
         const notificationExchange = 'notificationEx' // notificationEx direct
         const notiQueue = 'notificationQueueProcess' // assertQueue
         const notificationExchangeDLX = 'notificationExDLX' // notificationEx direct
-        const notificationRoutingKeyDLX = 'notificationExDLX' //assert
+        const notificationRoutingKeyDLX = 'notificationRoutingKeyDLX' //assert
 
         // 1. create exchange
         await channel.assertExchange(notificationExchange, 'direct', {
@@ -34,6 +34,8 @@ const runProducer = async () => {
         // 4. send message
         const msg = 'a new product'
         console.log('producer msg::', msg)
+        
+        // expiration: thời gian gửi tin nhắn
         await channel.sendToQueue(queueResult.queue, Buffer.from(msg), {
             expiration: '10000'
         })
